@@ -20,12 +20,6 @@ jobs:
       - yarn validate
     - stage: Build and Deploy - iOS Staging
       script:
-      - sudo pip install awscli
-      - cd $TRAVIS_BUILD_DIR
-      - export APP_BUILD_NUMBER=7795
-      - export NODE_OPTIONS=--max_old_space_size=2048;
-      - npm version $(node -e "const currentVersion=require('./package.json').version; const firstTwoDots=currentVersion.substring(0, currentVersion.lastIndexOf('.')+1); console.log(firstTwoDots);")$APP_BUILD_NUMBER
-      - export buildNumber=$(node -e "console.log(require('./package.json').version);")
       - rm .env && cp environments/.env.staging ./.env
       - sed -i.bak "s/_build_number_/$buildNumber/g" .env
       - sed -i.bak "s/_open_sea_api_key_/$OPEN_SEA_API_KEY/g" .env
@@ -42,12 +36,6 @@ jobs:
       - cd $TRAVIS_BUILD_DIR/ios && bundle exec fastlane deploy_staging APP_BUILD_NUMBER:$APP_BUILD_NUMBER build_number:$buildNumber APP_NAME:"Pillar Staging"
     - stage: Build and Deploy - iOS Prod
       script:
-      - sudo pip install awscli
-      - cd $TRAVIS_BUILD_DIR
-      - export APP_BUILD_NUMBER=7795
-      - export NODE_OPTIONS=--max_old_space_size=2048;
-      - npm version $(node -e "const currentVersion=require('./package.json').version; const firstTwoDots=currentVersion.substring(0, currentVersion.lastIndexOf('.')+1); console.log(firstTwoDots);")$APP_BUILD_NUMBER
-      - export buildNumber=$(node -e "console.log(require('./package.json').version);")
       - rm .env && cp environments/.env.production ./.env
       - sed -i.bak "s/_build_number_/$buildNumber/g" .env
       - sed -i.bak "s/_open_sea_api_key_/$OPEN_SEA_API_KEY/g" .env
