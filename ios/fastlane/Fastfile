@@ -28,7 +28,7 @@ platform :ios do
       workspace: "pillarwallet.xcworkspace",
       configuration: "Release",
       scheme: "pillarwallet",
-      clean: true,
+      clean: false,
       derived_data_path: "build",
       xcargs: "-UseModernBuildSystem=NO"
     )
